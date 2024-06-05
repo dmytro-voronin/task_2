@@ -9,23 +9,19 @@ public class Main {
     }
 
     public static String interviewRecursionTest(String line) {
-        if (line.isEmpty() || line.length() == 1) {
+        if (line.length() <= 1) {
             return line;
         } else {
-            char firstChar = line.charAt(0);
-            char secondChar = line.charAt(1);
+            String firstChar = line.substring(0, 1);
+            String restOfString = line.substring(1);
 
-            if (isVowel(firstChar)) {
-                return firstChar + "*" + interviewRecursionTest(line.substring(1));
-            } else if (isVowel(secondChar)) {
-                return firstChar + "*" + interviewRecursionTest(line.substring(1));
-            } else {
-                return firstChar + interviewRecursionTest(line.substring(1));
-            }
+            String separator = (isVowel(firstChar)
+                    || isVowel(restOfString.substring(0, 1))) ? "*" : "";
+            return firstChar + separator + interviewRecursionTest(restOfString);
         }
     }
 
-    private static boolean isVowel(char c) {
-        return "aeiouAEIOU".indexOf(c) != -1;
+    private static boolean isVowel(String c) {
+        return "aeiouAEIOU".contains(c);
     }
 }
